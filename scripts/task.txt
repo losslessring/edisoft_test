@@ -1,0 +1,66 @@
+Необходимо написать объект FormParamsObject, который позволяет подготовить и
+обработать объект параметров, собранных из формы. В качестве входного параметра должен
+быть объект с любым уровнем вложенности.
+Выполняйте задачу так, как ее поняли, используйте нативный JavaScript (ES5).
+Конструктор объекта должен иметь следующую сигнатуру:
+FormParamsObject(objectParams)
+Данный объект должен иметь методы:
+getFullObject()
+convertObjectToArray(propPath)
+getObjectProperty(propPath)
+setObjectProperty(propPath, value)
+Пример использования (в комментариях значения, которые возвращают методы):
+var params = new FormParamsObject(
+{
+param1: 'test1',
+param2: {
+param21: 'test2',
+param22: {
+number: ["123", "456"],
+text: ["text1", "text2"],
+}
+}
+}
+);
+params.getObjectProperty('param2.param21'); // 'test2'
+params.getObjectProperty('param1.param11.param33'); // null
+params.setObjectProperty('param2.param21', 'new value'); // 'new value'
+params.setObjectProperty('param1.param11.param33', 'new value2'); // 'new value2'
+params.getObjectProperty('param1.param11.param33'); // 'new value2'
+params.convertObjectToArray('param2.param22');
+/*
+[
+{
+number:"123"
+text:"text1"
+},
+{
+number:"456"
+text:"text2"
+}
+]
+*/
+params.getFullObject();
+/*
+{
+param1: {
+param11: {
+param33: 'new value2'
+
+}
+},
+param2: {
+param21: 'new value',
+param22: [
+{
+number:"123"
+text:"text1"
+},
+{
+number:"456"
+text:"text2"
+}
+]
+}
+}
+*/
